@@ -18,13 +18,13 @@ const userSchema = new Schema(
         thoughts: [
             {
               type: Schema.Types.ObjectId,
-              ref: 'Thought',
+              ref: 'Thought'
             },
         ],
         friends: [
             {
               type: Schema.Types.ObjectId,
-              ref: 'User',
+              ref: 'User'
             },
         ],
     },
@@ -36,6 +36,6 @@ const userSchema = new Schema(
       }
 );
 
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
