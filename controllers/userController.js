@@ -22,10 +22,6 @@ module.exports = {
         return res.status(404).json({ message: 'No user with that ID' })
       }
 
-    //   res.json({
-    //     student,
-    //     grade: await grade(req.params.studentId),
-    //   });
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -119,7 +115,7 @@ module.exports = {
       if (!user) {
         return res
           .status(404)
-          .json({ message: 'No student found with that ID :(' });
+          .json({ message: 'No user found with that ID :(' });
       }
 
       res.json(user);
