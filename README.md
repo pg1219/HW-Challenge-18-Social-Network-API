@@ -23,4 +23,4 @@ Repo: https://github.com/pg1219/HW-Challenge-18-Social-Network-API
 
 Preview image of deployed application
 
-![alt](./hw14mockup.png)
+![alt](./hw18mockup.png)
