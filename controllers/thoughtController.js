@@ -89,7 +89,7 @@ module.exports = {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtID },
-        { $addToSet: { reaction: req.params.reactionID } },
+        { $push: { reactions: req.body } },
         { runValidators: true, new: true }
       );
 
@@ -109,8 +109,8 @@ module.exports = {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtID },
-        { $pull: { reaction: req.params.reactionID } },
-        { runValidators: true, new: true }
+        { $pull: { reactions: { reactionID: req.params.reactionID } } },
+        // { runValidators: true, new: true }
       );
 
       if (!thought) {

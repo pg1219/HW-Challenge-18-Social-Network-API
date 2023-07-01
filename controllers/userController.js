@@ -66,7 +66,7 @@ module.exports = {
 
       const thought = await Thought.deleteMany(
         { user: req.params.userID },
-        { $pull: { user: req.params.userId } },
+        { $pull: { user: req.params.userID } },
         { new: true }
       );
 
@@ -90,7 +90,7 @@ module.exports = {
     try {
       const user = await User.findByIdAndUpdate(
         { _id: req.params.userID },
-        { $push: { friend: req.params.friendId } },
+        { $push: { friend: req.body } },
         { runValidators: true, new: true }
       );
 
