@@ -50,6 +50,7 @@ module.exports = {
       if (!user) {
         return res.status(404).json({ message: "No user with that ID" });
       }
+      res.json(user);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -90,8 +91,8 @@ module.exports = {
     try {
       const user = await User.findByIdAndUpdate(
         { _id: req.params.userID },
-        { $push: { friend: req.body } },
-        { runValidators: true, new: true }
+        { $addToSet: { friends: req.params.friendID } },
+        {  new: true }
       );
 
       if (!user) {
@@ -108,10 +109,10 @@ module.exports = {
 
   async deleteFriend(req, res) {
     try {
-      const user = await User.findByIdAndDelete(
+      const user = await User.findByIdAndUpdate(
         { _id: req.params.userID },
-        { $pull: { friend: {friend: req.params.friendID } } },
-        { runValidators: true, new: true }
+        { $pull: { friends: req.params.friendID } },
+        { new: true }
       );
 
       if (!user) {
