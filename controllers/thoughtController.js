@@ -14,7 +14,7 @@ module.exports = {
   async getSingleThought(req, res) {
     try {
       const thought = await Thought.findOne({
-        _id: req.params.ThoughtId,
+        _id: req.params.thoughtID,
       }).select("-__v");
 
       if (!thought) {
@@ -40,7 +40,7 @@ module.exports = {
   async updateThought(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
+        { _id: req.params.thoughtID },
         { $set: req.body },
         { runValidators: true, new: true }
       );
@@ -55,8 +55,8 @@ module.exports = {
 
   async deleteThought(req, res) {
     try {
-      const thought = await thought.findOneAndRemove({
-        _id: req.params.userId,
+      const thought = await Thought.findOneAndRemove({
+        _id: req.params.thoughtID,
       });
 
       if (!thought) {
@@ -64,8 +64,8 @@ module.exports = {
       }
 
       const user = await User.findOneAndUpdate(
-        { thoughts: req.params.thoughtId },
-        { $pull: { thoughts: req.params.thoughtId } },
+        { thoughts: req.params.thoughtID },
+        { $pull: { thoughts: req.params.thoughtID } },
         { new: true }
       );
 
@@ -88,8 +88,8 @@ module.exports = {
 
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
-        { $addToSet: { reaction: req.params.reactionId } },
+        { _id: req.params.thoughtID },
+        { $addToSet: { reaction: req.params.reactionID } },
         { runValidators: true, new: true }
       );
 
@@ -108,15 +108,15 @@ module.exports = {
   async deleteReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
-        { $pull: { reaction: req.params.reactionId } },
+        { _id: req.params.thoughtID },
+        { $pull: { reaction: req.params.reactionID } },
         { runValidators: true, new: true }
       );
 
       if (!thought) {
         return res
           .status(404)
-          .json({ message: "No thought found with that ID :(" });
+          .json({ message: "No thought found with that ID" });
       }
 
       res.json(thought);
